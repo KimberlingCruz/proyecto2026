@@ -1,5 +1,6 @@
+
+import React, { useState } from "react";
 import { Modal, Form, Button, Row, Col } from "react-bootstrap";
-import { useState } from "react";
 
 const ModalEdicionEmpleado = ({
   mostrarModalEdicion,

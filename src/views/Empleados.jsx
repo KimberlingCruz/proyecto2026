@@ -3,7 +3,7 @@ import { Container, Row, Col, Button, Alert, Spinner } from "react-bootstrap";
 import { supabase } from "../database/supabaseconfig";
 
 import ModalRegistroEmpleado from "../components/empleados/ModalRegistroEmpleado";
-import ModalEdicionEmpleado from "../components/empleados/ModalRegistroEmpleado";
+import ModalEdicionEmpleado from "../components/empleados/ModalEdicionEmpleado";
 import TablaEmpleados from "../components/empleados/TablaEmpleados";
 import TarjetaEmpleado from "../components/empleados/TarjetaEmpelado";
 import NotificacionOperacion from "../components/NotificacionOperacion";
