@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Button, Spinner } from "react-bootstrap";
 import { supabase } from "../database/supabaseconfig";
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
 
 // 🔍 Importa el componente de búsqueda para filtrar categorías
 import CuadrosBusquedas from "../components/busquedas/CuadroBusquedas";
@@ -59,6 +61,34 @@ const Categorias = () => {
     nombre_categoria: "",
     descripcion_categoria: "",
   });
+
+  const generarPDFCategoria = (categoria) => {
+
+    const doc = new jsPDF();
+
+    // Título
+    doc.setFontSize(18);
+    doc.text("Reporte de Categoría", 14, 20);
+
+    // Línea decorativa
+    doc.line(14, 25, 195, 25);
+
+    // Información de la categoría
+    doc.setFontSize(12);
+
+    autoTable(doc, {
+      startY: 35,
+      head: [["Campo", "Valor"]],
+      body: [
+        ["ID", categoria.id_categoria],
+        ["Nombre", categoria.nombre_categoria],
+        ["Descripción", categoria.descripcion_categoria],
+      ],
+    });
+
+    // Descargar PDF
+    doc.save(`categoria_${categoria.id_categoria}.pdf`);
+  };
 
   // 🚀 Carga inicial de categorías
   useEffect(() => {
@@ -357,10 +387,11 @@ const Categorias = () => {
 
           {/* 📱 Vista en tarjetas para móvil */}
           <Col xs={12} sm={12} md={12} className="d-lg-none">
-            <TarjetaCategoria
+            <TablaCategorias
               categorias={categoriasPaginadas}
               abrirModalEdicion={abrirModalEdicion}
               abrirModalEliminacion={abrirModalEliminacion}
+              generarPDFCategoria={generarPDFCategoria}
             />
           </Col>
         </Row>
@@ -385,7 +416,7 @@ const Categorias = () => {
           establecerRegistrosPorPagina={establecerRegistrosPorPagina}
         />
       )}
-      
+
       <ModalEdicionCategoria
         mostrarModalEdicion={mostrarModalEdicion}
         setMostrarModalEdicion={setMostrarModalEdicion}
