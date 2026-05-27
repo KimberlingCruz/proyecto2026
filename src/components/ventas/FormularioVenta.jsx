@@ -151,9 +151,9 @@ const FormularioVenta = ({
                         </div>
                         <div className="text-end">
                           <div className="fw-bold">C$ {(det.cantidad * det.precio).toFixed(2)}</div>
-                          <Button
-                            variant="outline-danger"
-                            size="sm"
+                          <Button 
+                            variant="outline-danger" 
+                            size="sm" 
                             className="mt-1"
                             onClick={() => eliminarDetalle(det.id_producto)}
                           >
@@ -180,8 +180,8 @@ const FormularioVenta = ({
         <Button variant="secondary" onClick={() => setMostrar(false)}>
           Cancelar
         </Button>
-        <Button
-          variant="primary"
+        <Button 
+          variant="primary" 
           onClick={guardarVenta}
           disabled={!clienteSeleccionado || !empleadoSeleccionado || detalles.length === 0}
         >
