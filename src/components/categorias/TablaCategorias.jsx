@@ -9,11 +9,8 @@ const TablaCategorias = ({
     abrirModalEliminacion,
     generarPDFCategoria,
     copiarCategoria
-
 }) => {
-
     const [loading, setLoading] = useState(true);
-
     useEffect(() => {
         if (categorias && categorias.length > 0) {
             setLoading(false);
@@ -21,7 +18,6 @@ const TablaCategorias = ({
             setLoading(true);
         }
     }, [categorias]);
-
 
     return (
         <>
@@ -90,6 +86,5 @@ const TablaCategorias = ({
     );
 
 };
-
 
 export default TablaCategorias;
