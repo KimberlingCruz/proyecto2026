@@ -9,6 +9,7 @@ import TablaProductos from "../components/productos/TablaProducto";
 import TarjetaProducto from "../components/productos/TarjetasProductos";
 import ModalEdicionProducto from "../components/productos/ModalEdicionProducto";
 import ModalEliminacionProducto from "../components/productos/ModalEliminacionProducto";
+import ModalQRProducto from "../components/productos/ModalQRProducto";
 
 const Productos = () => {
 
@@ -29,7 +30,22 @@ const Productos = () => {
         (paginaActual - 1) * registrosPorPagina,
         paginaActual * registrosPorPagina
     );
+    const [mostrarModalQR, setMostrarModalQR] = useState(false);
+    const [productoQR, setProductoQR] = useState(null);
 
+    const generarQRImagen = (producto) => {
+        if (!producto?.url_imagen) {
+            setToast({
+                mostrar: true,
+                mensaje: "Este producto no tiene imagen asociada",
+                tipo: "advertencia"
+            });
+            return;
+        }
+
+        setProductoQR(producto);
+        setMostrarModalQR(true);
+    };
     const [nuevoProducto, setNuevoProducto] = useState({
         nombre_producto: "",
         descripcion_producto: "",
@@ -168,7 +184,7 @@ const Productos = () => {
 
             // === Manejo de nueva imagen ===
             if (productoEditar.archivo) {
-                const nombreArchivo =`${Date.now()}_${productoEditar.archivo.name}`;
+                const nombreArchivo = `${Date.now()}_${productoEditar.archivo.name}`;
 
                 // Subir nueva imagen
                 const { error: uploadError } = await supabase.storage
@@ -450,6 +466,7 @@ const Productos = () => {
                             productos={productosPaginados}
                             abrirModalEdicion={abrirModalEdicion}
                             abrirModalEliminacion={abrirModalEliminacion}
+                            generarQRImagen={generarQRImagen}
                         />
                     </Col>
 
@@ -458,6 +475,7 @@ const Productos = () => {
                             productos={productosPaginados}
                             abrirModalEdicion={abrirModalEdicion}
                             abrirModalEliminacion={abrirModalEliminacion}
+                            generarQRImagen={generarQRImagen}
                         />
                     </Col>
                 </Row>
@@ -499,7 +517,11 @@ const Productos = () => {
                 agregarProducto={agregarProducto}
                 categorias={categorias}
             />
-
+            <ModalQRProducto
+                mostrar={mostrarModalQR}
+                onHide={() => setMostrarModalQR(false)}
+                producto={productoQR}
+            />
             <NotificacionOperacion
                 mostrar={toast.mostrar}
                 mensaje={toast.mensaje}
