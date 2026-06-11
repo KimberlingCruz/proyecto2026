@@ -13,6 +13,8 @@ import Catalogo from "./views/Catalogo";
 import Productos from "./views/Productos";
 import Login from "./views/Login";
 import Empleados from "./views/Empleados";
+import Clientes from "./views/clientes";
+import Ventas from "./views/Ventas";
 import Pagina404 from "./views/Pagina404";
 
 const App = () => {
@@ -30,7 +32,9 @@ const App = () => {
           <Route path="/" element={<RutaProtegida><Inicio /></RutaProtegida>} />
           <Route path="/categorias" element={<RutaProtegida><Categorias /></RutaProtegida>} />
           <Route path="/catalogo" element={<Catalogo />} /> {/* Ruta pública */}
+          <Route path="/clientes" element={<Clientes />} /> {/* Ruta pública */}
           <Route path="/empleados" element={<Empleados />} /> {/* Ruta pública */}
+          <Route path="/ventas" element={<Ventas />} /> {/* Ruta pública */}
           <Route path="/productos" element={<RutaProtegida><Productos /></RutaProtegida>} />
 
           {/* Página no encontrada */}
